@@ -1,3 +1,7 @@
+let valA = 0;
+let valB = 0;
+let valOp = "+";
+
 function add(a, b){
     return a + b;
 }
@@ -14,20 +18,51 @@ function divide(a, b){
     return a / b;
 }
 
-function operate(a, b, op){
-    if(op == 0){
-        return add(a,b);
+function operate(){
+    if(valOp == "+"){
+        return add(valA,valB);
     }
-    else if(op == 1){
-        return subtract(a,b);
+    else if(valOp == "-"){
+        return subtract(valA,valB);
     }
-    else if(op == 2){
-        return multiply(a,b);
+    else if(valOp == "*"){
+        return multiply(valA,valB);
     }
     else{
-        return divide(a, b);
+        return divide(valA, valB);
     }
 }
+
+function setScreen(val){
+    let text = document.querySelector("#screen-text");
+    if(val == "+" || val == "-" || val == "*" || val == "/"){
+        valA = Number(text);
+        valOp = val;
+        text.innerHTML += (" " + val + " ");
+    }
+    else{
+        if(text.innerHTML == "0"){
+            text.innerHTML = val;
+        }
+        else{
+            text.innerHTML += val;
+        }
+    }
+}
+
+function getInput(e){
+    val = this.innerHTML;
+    if(val == "="){
+        console.log("Yerr");
+    }
+    else{
+        setScreen(val);
+    }
+    
+}
+
+const buttons = document.querySelectorAll("button");
+buttons.forEach(button => button.addEventListener("click", getInput));
 
 /*TEST
 let arr = [3, 3, 8, 35];
