@@ -1,13 +1,16 @@
-function add(sum, num){
-    return sum + num;
+let a = 3;
+let b = 3; 
+let op = 0;
+function add(a, b){
+    return a + b;
 }
 
-function subtract(diff, num){
-    return diff - num;
+function subtract(a, b){
+    return a - b;
 }
 
-function multiply(mult, num){
-    return mult * num;
+function multiply(a, b){
+    return a * b;
 }
 
 function divide(a, b){
@@ -16,7 +19,7 @@ function divide(a, b){
 
 let arr = [3, 3, 8, 35];
 
-console.log("Add: " + arr.reduce(add, 0));
-console.log("Subtract: " + arr.reduce(subtract, 0));
-console.log("Multiply: " + arr.reduce(multiply, 1));
-console.log("Divide: " + arr.reduce(divide));
+console.log("Add: " + add(a, b));
+console.log("Subtract: " + subtract(a,b));
+console.log("Multiply: " + multiply(a,b));
+console.log("Divide: " + divide(a,b));
