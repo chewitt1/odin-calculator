@@ -1,7 +1,3 @@
-let valA = 0;
-let valB = 0;
-let valOp = "+";
-
 function add(a, b){
     return a + b;
 }
@@ -18,26 +14,27 @@ function divide(a, b){
     return a / b;
 }
 
-function operate(){
-    if(valOp == "+"){
-        return add(valA,valB);
+function operate(opVals){
+    let a = Number(opVals[0]);
+    let op = opVals[1];
+    let b = Number(opVals[2]);
+    if(op == "+"){
+        return add(a,b);
     }
-    else if(valOp == "-"){
-        return subtract(valA,valB);
+    else if(op == "-"){
+        return subtract(a,b);
     }
-    else if(valOp == "*"){
-        return multiply(valA,valB);
+    else if(op == "*"){
+        return multiply(a,b);
     }
     else{
-        return divide(valA, valB);
+        return divide(a, b);
     }
 }
 
 function setScreen(val){
     let text = document.querySelector("#screen-text");
     if(val == "+" || val == "-" || val == "*" || val == "/"){
-        valA = Number(text);
-        valOp = val;
         text.innerHTML += (" " + val + " ");
     }
     else{
@@ -50,10 +47,20 @@ function setScreen(val){
     }
 }
 
-function getInput(e){
+function getOutput(){
+    let text = document.querySelector("#screen-text");
+    let opVals = (text.innerHTML).split(" ");
+    text.innerHTML = operate(opVals);
+}
+
+function setInput(e){
     val = this.innerHTML;
     if(val == "="){
-        console.log("Yerr");
+        getOutput();
+    }
+    else if(val == "CLR"){
+        let text = document.querySelector("#screen-text");
+        text.innerHTML = "0";
     }
     else{
         setScreen(val);
@@ -62,7 +69,7 @@ function getInput(e){
 }
 
 const buttons = document.querySelectorAll("button");
-buttons.forEach(button => button.addEventListener("click", getInput));
+buttons.forEach(button => button.addEventListener("click", setInput));
 
 /*TEST
 let arr = [3, 3, 8, 35];
