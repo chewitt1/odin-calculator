@@ -66,6 +66,10 @@ body{
     flex-direction: column;
 }
 
+.op > button{
+    background: rgb(224, 143, 198);
+}
+
 button{
     min-width: 2.5rem;
     min-height: 2rem;
