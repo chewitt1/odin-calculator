@@ -74,46 +74,48 @@ function off(){
 function setScreen(val){
     let text = document.querySelector("#screen-text");
     if(isNaN(val)){
-        if(val == "←"){
-            let curr = text.innerHTML;
-            if(curr.length == 1){
-                text.innerHTML = "0";
-            }
-            else{
-                let texts = curr.split(" ");
-            
-                if(texts[texts.length-1] == ""){
-                    text.innerHTML = curr.substring(0, curr.length-3);
+        if(done == false){
+            if(val == "←"){
+                let curr = text.innerHTML;
+                if(curr.length == 1){
+                    text.innerHTML = "0";
                 }
                 else{
-                    text.innerHTML = curr.substring(0, curr.length-1);
+                    let texts = curr.split(" ");
+                
+                    if(texts[texts.length-1] == ""){
+                        text.innerHTML = curr.substring(0, curr.length-3);
+                    }
+                    else{
+                        text.innerHTML = curr.substring(0, curr.length-1);
+                    }
                 }
             }
-            
-            
-            //text.innerHTML = "(^_^) Boop! ";
-        }
-        else if (val == "."){
-            if(!decimal){
-                text.innerHTML += val;
-                decimal = true;
+            else if (val == "."){
+                if(!decimal){
+                    text.innerHTML += val;
+                    decimal = true;
+                }
+            }
+            else{
+                let texts = text.innerHTML.split(" ");
+                vals.push(Number(texts[texts.length-1]));
+                opVals.push(val);
+                text.innerHTML += (" " + val + " ");
+                decimal = false;
             }
         }
-        else{
-            let texts = text.innerHTML.split(" ");
-            vals.push(Number(texts[texts.length-1]));
-            opVals.push(val);
-            text.innerHTML += (" " + val + " ");
-            decimal = false;
-        }
-    }
-    else if(text.innerHTML != "0" && done == false){
-        text.innerHTML += val;
     }
     else{
-        done = false;
-        text.innerHTML = val;
+        if(text.innerHTML != "0" && done == false){
+            text.innerHTML += val;
+        }
+        else{
+            done = false;
+            text.innerHTML = val;
+        }
     }
+    
     
 }
 
@@ -146,7 +148,7 @@ function setInput(e){
             text.innerHTML = "0";
         }
     }
-    else if(text.innerHTML != "" && text.innerHTML != "(^_^) Boop! "){
+    else if(text.innerHTML != ""){
         val = this.innerHTML;
         if(val == "="){
             getOutput();
@@ -168,8 +170,67 @@ function setInput(e){
 
 }
 
+function setKeyInput(e){
+    switch(e.keyCode){
+        case 8:{
+            setScreen("←");
+        }break;
+        case 13:{
+            getOutput();
+        }break;
+        case 27:{
+            reset();
+            text.innerHTML = "";
+            off();
+        }break;
+        case 46:{
+            reset();
+            let text = document.querySelector("#screen-text");
+            text.innerHTML = "0";
+        }break;
+        case 48:{
+            setScreen(0);
+        }break;
+        case 49:{
+            setScreen(1);
+        }break;
+        case 50:{
+            setScreen(2);
+        }break;
+        case 51:{
+            setScreen(3);
+        }break;
+        case 52:{
+            setScreen(4);
+        }break;
+        case 53:{
+            setScreen(5);
+        }break;
+        case 54:{
+            setScreen(6);
+        }break;
+        case 55:{
+            setScreen(7);
+        }break;
+        case 56:{
+            setScreen(8);
+        }break;
+        case 57:{
+            setScreen(9);
+        }break;
+        case 187:{
+            setScreen("+");
+        }break;
+        case 189:{
+            setScreen("-");
+        }break;
+    }
+    console.log(e.keyCode);
+}
+
 const buttons = document.querySelectorAll("button");
 buttons.forEach(button => button.addEventListener("click", setInput));
+window.addEventListener('keydown', setKeyInput);
 
 /*TEST
 let arr = [3, 3, 8, 35];
