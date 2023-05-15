@@ -21,6 +21,9 @@ function divide(a, b){
 
 
 function operate(result, num){
+    if(result == "You can't divide by 0..."){
+        return result;
+    }
     if(result != undefined){
         let op = opVals[i++];
 
@@ -34,7 +37,15 @@ function operate(result, num){
             return multiply(result,num);
         }
         else{
-            return divide(result, num);
+            if(num == 0){
+                let text = document.querySelector("#screen-text");
+                return("You can't divide by 0...");
+                reset();
+            }
+            else{
+                return divide(result, num);
+            }
+            
         }
     }
     return num;
@@ -95,7 +106,7 @@ function getOutput(){
 
 function setInput(e){
     let text = document.querySelector("#screen-text");
-    if(text.innerHTML == "ERROR"){
+    if(text.innerHTML == "ERROR" || text.innerHTML == "You can't divide by 0..."){
         val = this.innerHTML;
         if(val == "CLR"){
             reset();
