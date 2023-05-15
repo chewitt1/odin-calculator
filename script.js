@@ -1,3 +1,8 @@
+let vals = [];
+let opVals = [];
+let i = 0;
+let done = false;
+
 function add(a, b){
     return a + b;
 }
@@ -14,58 +19,86 @@ function divide(a, b){
     return a / b;
 }
 
-function operate(opVals){
-    let a = Number(opVals[0]);
-    let op = opVals[1];
-    let b = Number(opVals[2]);
-    if(op == "+"){
-        return add(a,b);
+
+function operate(result, num){
+    if(result != undefined){
+        let op = opVals[i++];
+
+        if(op == "+"){
+            return add(result,num);
+        }
+        else if(op == "-"){
+            return subtract(result,num);
+        }
+        else if(op == "*"){
+            return multiply(result,num);
+        }
+        else{
+            return divide(result, num);
+        }
     }
-    else if(op == "-"){
-        return subtract(a,b);
-    }
-    else if(op == "*"){
-        return multiply(a,b);
-    }
-    else{
-        return divide(a, b);
-    }
+    return num;
+}
+
+function reset(){
+    vals = [];
+    opVals = [];
+    i = 0;
 }
 
 function setScreen(val){
     let text = document.querySelector("#screen-text");
-    if(val == "+" || val == "-" || val == "*" || val == "/"){
-        text.innerHTML += (" " + val + " ");
-    }
-    else{
-        if(text.innerHTML == "0"){
-            text.innerHTML = val;
+    if(isNaN(val)){
+        if(val == "(^_^)"){
+            text.innerHTML = "(^_^) Boop! ";
+            reset();
         }
         else{
-            text.innerHTML += val;
+            let texts = text.innerHTML.split(" ");
+            vals.push(Number(texts[texts.length-1]));
+            opVals.push(val);
+            text.innerHTML += (" " + val + " ");
         }
     }
+    else if(text.innerHTML != "0"){
+        text.innerHTML += val;
+    }
+    else{
+        text.innerHTML = val;
+    }
+    
 }
 
 function getOutput(){
     let text = document.querySelector("#screen-text");
-    let opVals = (text.innerHTML).split(" ");
-    text.innerHTML = operate(opVals);
+    let texts = text.innerHTML.split(" ");
+    vals.push(Number(texts[texts.length-1]));
+    let result = vals.reduce(operate);
+    text.innerHTML = result;
+    done = true;
+    reset();
 }
 
 function setInput(e){
-    val = this.innerHTML;
-    if(val == "="){
-        getOutput();
+    let text = document.querySelector("#screen-text");
+    if(text.innerHTML != ""){
+        val = this.innerHTML;
+        if(val == "="){
+            getOutput();
+        }
+        else if(val == "CLR"){
+            reset();
+            let text = document.querySelector("#screen-text");
+            text.innerHTML = "0";
+        }
+        else if (val == "OFF"){
+            reset();
+            text.innerHTML = "";
+        }
+        else{
+            setScreen(val);
+        }
     }
-    else if(val == "CLR"){
-        let text = document.querySelector("#screen-text");
-        text.innerHTML = "0";
-    }
-    else{
-        setScreen(val);
-    }
-    
 }
 
 const buttons = document.querySelectorAll("button");
