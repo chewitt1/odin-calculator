@@ -46,12 +46,19 @@ function reset(){
     i = 0;
 }
 
+function off(){
+    let mess = document.querySelector("#off-message");
+    mess.classList.remove("no-display");
+    buttons.forEach(button => button.disabled)
+}
+
 function setScreen(val){
     let text = document.querySelector("#screen-text");
     if(isNaN(val)){
         if(val == "(^_^)"){
             text.innerHTML = "(^_^) Boop! ";
             reset();
+            off();
         }
         else{
             let texts = text.innerHTML.split(" ");
@@ -81,7 +88,7 @@ function getOutput(){
 
 function setInput(e){
     let text = document.querySelector("#screen-text");
-    if(text.innerHTML != ""){
+    if(text.innerHTML != "" && text.innerHTML != "(^_^) Boop! "){
         val = this.innerHTML;
         if(val == "="){
             getOutput();
@@ -94,6 +101,7 @@ function setInput(e){
         else if (val == "OFF"){
             reset();
             text.innerHTML = "";
+            off();
         }
         else{
             setScreen(val);
