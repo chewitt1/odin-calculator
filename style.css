@@ -39,6 +39,9 @@ body{
     display: flex;
 }
 
+.calc-body:hover{
+    cursor: pointer;
+}
 .input{
     display: flex;
     flex-direction: column;
