@@ -3,22 +3,34 @@ let opVals = [];
 let i = 0;
 let done = false;
 
+function fixedIt(val){
+    if(val % 1 != 0){
+        return val.toFixed(6);
+    }
+    return val;
+}
+
 function add(a, b){
-    return a + b;
+    return fixedIt(a + b);
 }
 
 function subtract(a, b){
-    return a - b;
+    return fixedIt(a - b);
 }
 
 function multiply(a, b){
-    return a * b;
+    return fixedIt(a * b);
 }
 
 function divide(a, b){
-    return a / b;
+    return fixedIt(a / b);
 }
 
+function reset(){
+    vals = [];
+    opVals = [];
+    i = 0;
+}
 
 function operate(result, num){
     if(result == "You can't divide by 0..."){
@@ -39,8 +51,10 @@ function operate(result, num){
         else{
             if(num == 0){
                 let text = document.querySelector("#screen-text");
-                return("You can't divide by 0...");
+                text.classList.add("fontSmall");
                 reset();
+                return("You can't divide by 0...");
+                
             }
             else{
                 return divide(result, num);
@@ -49,12 +63,6 @@ function operate(result, num){
         }
     }
     return num;
-}
-
-function reset(){
-    vals = [];
-    opVals = [];
-    i = 0;
 }
 
 function off(){
@@ -111,6 +119,7 @@ function setInput(e){
         if(val == "CLR"){
             reset();
             let text = document.querySelector("#screen-text");
+            text.classList.remove("fontSmall");
             text.innerHTML = "0";
         }
     }

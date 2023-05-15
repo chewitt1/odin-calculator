@@ -13,6 +13,7 @@ body{
 .title{
     margin: 1rem 0;
     font-size: 40pt;
+    color:rgb(126, 75, 113);
 }
 
 .calc-body{
@@ -84,4 +85,8 @@ button:hover{
 
 .no-display{
     display: none;
+}
+
+.fontSmall{
+    font-size: 10pt;
 }
