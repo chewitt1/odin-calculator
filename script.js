@@ -49,7 +49,6 @@ function reset(){
 function off(){
     let mess = document.querySelector("#off-message");
     mess.classList.remove("no-display");
-    buttons.forEach(button => button.disabled)
 }
 
 function setScreen(val){
@@ -79,16 +78,32 @@ function setScreen(val){
 function getOutput(){
     let text = document.querySelector("#screen-text");
     let texts = text.innerHTML.split(" ");
-    vals.push(Number(texts[texts.length-1]));
-    let result = vals.reduce(operate);
-    text.innerHTML = result;
-    done = true;
+    if(!isNaN(texts[texts.length-1]) && (texts[texts.length-1] != "")){
+        vals.push(Number(texts[texts.length-1]));
+    }
+    if(vals.length <= opVals.length){
+        text.innerHTML = "ERROR";
+    }
+    else{
+        let result = vals.reduce(operate);
+        text.innerHTML = result;
+        done = true;
+    }
+    
     reset();
 }
 
 function setInput(e){
     let text = document.querySelector("#screen-text");
-    if(text.innerHTML != "" && text.innerHTML != "(^_^) Boop! "){
+    if(text.innerHTML == "ERROR"){
+        val = this.innerHTML;
+        if(val == "CLR"){
+            reset();
+            let text = document.querySelector("#screen-text");
+            text.innerHTML = "0";
+        }
+    }
+    else if(text.innerHTML != "" && text.innerHTML != "(^_^) Boop! "){
         val = this.innerHTML;
         if(val == "="){
             getOutput();
@@ -107,6 +122,7 @@ function setInput(e){
             setScreen(val);
         }
     }
+
 }
 
 const buttons = document.querySelectorAll("button");

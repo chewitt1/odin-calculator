@@ -73,6 +73,7 @@ button{
 button:hover{
     cursor: pointer;
 }
+
 #off-message{
     margin-top: 1rem;
     color: red;
