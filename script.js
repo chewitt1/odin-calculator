@@ -2,10 +2,11 @@ let vals = [];
 let opVals = [];
 let i = 0;
 let done = false;
+let decimal = false;
 
 function fixedIt(val){
     if(val % 1 != 0){
-        return val.toFixed(6);
+        return parseFloat(val.toFixed(6));
     }
     return val;
 }
@@ -78,17 +79,25 @@ function setScreen(val){
             reset();
             off();
         }
+        else if (val == "."){
+            if(!decimal){
+                text.innerHTML += val;
+                decimal = true;
+            }
+        }
         else{
             let texts = text.innerHTML.split(" ");
             vals.push(Number(texts[texts.length-1]));
             opVals.push(val);
             text.innerHTML += (" " + val + " ");
+            decimal = false;
         }
     }
-    else if(text.innerHTML != "0"){
+    else if(text.innerHTML != "0" && done == false){
         text.innerHTML += val;
     }
     else{
+        done = false;
         text.innerHTML = val;
     }
     
@@ -108,16 +117,16 @@ function getOutput(){
         text.innerHTML = result;
         done = true;
     }
-    
     reset();
 }
 
 function setInput(e){
     let text = document.querySelector("#screen-text");
-    if(text.innerHTML == "ERROR" || text.innerHTML == "You can't divide by 0..."){
+    if(text.innerHTML == "ERROR" || text.innerHTML == "You can't divide by 0...") {
         val = this.innerHTML;
         if(val == "CLR"){
             reset();
+            done = false;
             let text = document.querySelector("#screen-text");
             text.classList.remove("fontSmall");
             text.innerHTML = "0";
