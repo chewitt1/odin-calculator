@@ -74,10 +74,24 @@ function off(){
 function setScreen(val){
     let text = document.querySelector("#screen-text");
     if(isNaN(val)){
-        if(val == "(^_^)"){
-            text.innerHTML = "(^_^) Boop! ";
-            reset();
-            off();
+        if(val == "←"){
+            let curr = text.innerHTML;
+            if(curr.length == 1){
+                text.innerHTML = "0";
+            }
+            else{
+                let texts = curr.split(" ");
+            
+                if(texts[texts.length-1] == ""){
+                    text.innerHTML = curr.substring(0, curr.length-3);
+                }
+                else{
+                    text.innerHTML = curr.substring(0, curr.length-1);
+                }
+            }
+            
+            
+            //text.innerHTML = "(^_^) Boop! ";
         }
         else if (val == "."){
             if(!decimal){
