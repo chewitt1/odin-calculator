@@ -117,3 +117,7 @@ footer{
 .opClick{
     background: #d5a46c;
 }
+
+.fontSmall{
+    font-size: 1rem;
+}

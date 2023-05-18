@@ -173,7 +173,10 @@ function operate(result, num){
     return num;
 }
 function getResult(){
-    $("#calc").text(vals.reduce(operate));
+    if(operations.length < vals.length){
+        $("#calc").text(vals.reduce(operate));
+    }
+    
     done = true;
 }
 
