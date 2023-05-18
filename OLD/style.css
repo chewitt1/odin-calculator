@@ -1,0 +1,93 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: rgb(234, 214, 229);
+}
+
+.title{
+    margin: 1rem 0;
+    font-size: 40pt;
+    color:rgb(126, 75, 113);
+}
+
+.calc-body{
+    padding: 1rem;
+    background: plum;
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.calc-screen{
+    height: 8vh;
+    min-width: 80%;
+    background: rgb(226, 187, 217);
+    margin-bottom: 1rem;
+    border-radius: 1rem;
+    display: flex;
+    align-items: center;
+    padding: 0 1rem;
+}
+
+.buttons{
+    display: flex;
+}
+
+.input{
+    display: flex;
+    flex-direction: column;
+}
+
+.last{
+    display: flex;
+}
+
+.row{
+    display: flex; 
+    justify-content: space-evenly;
+}
+
+#zero{
+    flex: 2;
+}
+
+.op{
+    display: flex;
+    flex-direction: column;
+}
+
+.op > button{
+    background: rgb(224, 143, 198);
+}
+
+button{
+    min-width: 2.5rem;
+    min-height: 2rem;
+    border-radius: 1rem;
+    border-color: plum;
+    background: rgb(234, 214, 229);
+}
+
+button:hover{
+    cursor: pointer;
+}
+
+#off-message{
+    margin-top: 1rem;
+    color: red;
+}
+
+.no-display{
+    display: none;
+}
+
+.fontSmall{
+    font-size: 10pt;
+}

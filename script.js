@@ -1,9 +1,123 @@
+/*Globals*/
+let operations = [];
 let vals = [];
-let opVals = [];
+let opSet = false;
 let i = 0;
-let done = false;
 let decimal = false;
+let done = false;
+let valSet = false;
 
+/*Functions*/
+
+/*Visuals & Setters*/
+
+function reset(){
+    vals = [];
+    operations = [];
+    opSet = false;
+    done = false;
+    valSet = false;
+    i = 0;
+}
+
+function setCtrl(val){
+    if(val == "AC"){
+        $("#calc").html("0");
+        reset();
+    }
+    else if(!done){
+        if(opSet){
+            operations.pop();
+            opSet = false;
+            resetOpBg();
+        }
+        let curr = $("#calc").text();
+        if(val == "←"){
+            if(curr.length == 1){
+                $("#calc").text("0");
+            }
+            else{
+                $("#calc").text(curr.substring(0, curr.length-1));
+            }
+            
+        }
+        else if(val == "+/-"){
+            if((curr != "0") && (curr.substring(0,1) != "-")){
+                curr = "-" + curr;
+                $("#calc").text(curr);
+            }
+        }
+    }
+}
+
+function setVal(val){
+    opSet = false;
+    let text = $("#calc").text();
+    $("#calc").fadeToggle(20);
+    if (val == "."){
+        if(!decimal){
+            text += val;
+            $("#calc").text(text)
+            decimal = true;
+        }
+    }
+    else if(text == "0" || text == "You can't divide by 0..."){
+        $("#calc").text(val);
+    }
+    else if(!valSet && (vals.length > 0) && operations.length == vals.length){
+        $("#calc").text(val);
+        valSet = true;
+    }
+    else{
+        text += val;
+        $("#calc").text(text);
+    }
+    $("#calc").fadeToggle(20);
+}
+
+function resetOpBg(){
+    let ops = document.querySelectorAll(".op");
+    ops.forEach(op => op.classList.remove("opClick"));
+}
+
+function setOp(elem){
+    let val = elem.innerHTML;
+    if(!opSet){
+        resetOpBg();
+        let text = $("#calc").text();
+        vals.push(Number(text));
+        valSet = false;
+        if(val == "="){
+            getResult();
+        }
+        else{
+            operations.push(val);
+            elem.classList.add("opClick");
+        }
+        opSet = true;
+    }
+}
+
+function setScreen(e){
+    let type = this.classList[0];
+    
+    if(!done){
+        if(type == "num"){
+            setVal(this.innerHTML);
+        }
+        else if(type == "op"){
+            setOp(this);
+        }
+        else if(type == "ctrl"){
+            setCtrl(this.innerHTML);
+        }
+    }
+    else if(type == "ctrl"){
+        setCtrl(this.innerHTML);
+    }
+}
+
+/*Calculations*/
 function fixedIt(val){
     if(val % 1 != 0){
         return parseFloat(val.toFixed(6));
@@ -27,18 +141,12 @@ function divide(a, b){
     return fixedIt(a / b);
 }
 
-function reset(){
-    vals = [];
-    opVals = [];
-    i = 0;
-}
-
 function operate(result, num){
     if(result == "You can't divide by 0..."){
         return result;
     }
     if(result != undefined){
-        let op = opVals[i++];
+        let op = operations[i++];
 
         if(op == "+"){
             return add(result,num);
@@ -51,11 +159,10 @@ function operate(result, num){
         }
         else{
             if(num == 0){
-                let text = document.querySelector("#screen-text");
+                let text = document.querySelector("#calc");
                 text.classList.add("fontSmall");
                 reset();
                 return("You can't divide by 0...");
-                
             }
             else{
                 return divide(result, num);
@@ -65,181 +172,21 @@ function operate(result, num){
     }
     return num;
 }
-
-function off(){
-    let mess = document.querySelector("#off-message");
-    mess.classList.remove("no-display");
-}
-
-function setScreen(val){
-    let text = document.querySelector("#screen-text");
-    if(isNaN(val)){
-        if(done == false){
-            if(val == "←"){
-                let curr = text.innerHTML;
-                if(curr.length == 1){
-                    text.innerHTML = "0";
-                }
-                else{
-                    let texts = curr.split(" ");
-                
-                    if(texts[texts.length-1] == ""){
-                        text.innerHTML = curr.substring(0, curr.length-3);
-                    }
-                    else{
-                        text.innerHTML = curr.substring(0, curr.length-1);
-                    }
-                }
-            }
-            else if (val == "."){
-                if(!decimal){
-                    text.innerHTML += val;
-                    decimal = true;
-                }
-            }
-            else{
-                let texts = text.innerHTML.split(" ");
-                vals.push(Number(texts[texts.length-1]));
-                opVals.push(val);
-                text.innerHTML += (" " + val + " ");
-                decimal = false;
-            }
-        }
-    }
-    else{
-        if(text.innerHTML != "0" && done == false){
-            text.innerHTML += val;
-        }
-        else{
-            done = false;
-            text.innerHTML = val;
-        }
+function getResult(){
+    if(operations.length < vals.length){
+        $("#calc").text(vals.reduce(operate));
     }
     
-    
+    done = true;
 }
 
-function getOutput(){
-    let text = document.querySelector("#screen-text");
-    let texts = text.innerHTML.split(" ");
-    if(!isNaN(texts[texts.length-1]) && (texts[texts.length-1] != "")){
-        vals.push(Number(texts[texts.length-1]));
-    }
-    if(vals.length <= opVals.length){
-        text.innerHTML = "ERROR";
-    }
-    else{
-        let result = vals.reduce(operate);
-        text.innerHTML = result;
-        done = true;
-    }
-    reset();
-}
+/*Buttons Listeners*/
+$(document).ready(function(){
+    let ctrls = document.querySelectorAll(".ctrl");
+    ctrls.forEach(ctrl => ctrl.addEventListener("click", setScreen));
+    let ops = document.querySelectorAll(".op");
+    ops.forEach(op => op.addEventListener("click", setScreen));
+    let nums = document.querySelectorAll(".num");
+    nums.forEach(num => num.addEventListener("click", setScreen));
 
-function setInput(e){
-    let text = document.querySelector("#screen-text");
-    if(text.innerHTML == "ERROR" || text.innerHTML == "You can't divide by 0...") {
-        val = this.innerHTML;
-        if(val == "CLR"){
-            reset();
-            done = false;
-            let text = document.querySelector("#screen-text");
-            text.classList.remove("fontSmall");
-            text.innerHTML = "0";
-        }
-    }
-    else if(text.innerHTML != ""){
-        val = this.innerHTML;
-        if(val == "="){
-            getOutput();
-        }
-        else if(val == "CLR"){
-            reset();
-            let text = document.querySelector("#screen-text");
-            text.innerHTML = "0";
-        }
-        else if (val == "OFF"){
-            reset();
-            text.innerHTML = "";
-            off();
-        }
-        else{
-            setScreen(val);
-        }
-    }
-
-}
-
-function setKeyInput(e){
-    switch(e.keyCode){
-        case 8:{
-            setScreen("←");
-        }break;
-        case 13:{
-            getOutput();
-        }break;
-        case 27:{
-            reset();
-            text.innerHTML = "";
-            off();
-        }break;
-        case 46:{
-            reset();
-            let text = document.querySelector("#screen-text");
-            text.innerHTML = "0";
-        }break;
-        case 48:{
-            setScreen(0);
-        }break;
-        case 49:{
-            setScreen(1);
-        }break;
-        case 50:{
-            setScreen(2);
-        }break;
-        case 51:{
-            setScreen(3);
-        }break;
-        case 52:{
-            setScreen(4);
-        }break;
-        case 53:{
-            setScreen(5);
-        }break;
-        case 54:{
-            setScreen(6);
-        }break;
-        case 55:{
-            setScreen(7);
-        }break;
-        case 56:{
-            setScreen(8);
-        }break;
-        case 57:{
-            setScreen(9);
-        }break;
-        case 187:{
-            setScreen("+");
-        }break;
-        case 189:{
-            setScreen("-");
-        }break;
-    }
-    console.log(e.keyCode);
-}
-
-const buttons = document.querySelectorAll("button");
-buttons.forEach(button => button.addEventListener("click", setInput));
-window.addEventListener('keydown', setKeyInput);
-
-/*TEST
-let arr = [3, 3, 8, 35];
-let a = 3;
-let b = 3; 
-let op = 0;
-
-console.log("Add: " + add(a, b));
-console.log("Subtract: " + subtract(a,b));
-console.log("Multiply: " + multiply(a,b));
-console.log("Divide: " + divide(a,b));
-*/
+});
