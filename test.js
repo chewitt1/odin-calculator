@@ -118,20 +118,27 @@ function setScreen(e){
 }
 
 /*Calculations*/
+function fixedIt(val){
+    if(val % 1 != 0){
+        return parseFloat(val.toFixed(6));
+    }
+    return val;
+}
+
 function add(a, b){
-    return (a + b);
+    return fixedIt(a + b);
 }
 
 function subtract(a, b){
-    return (a - b);
+    return fixedIt(a - b);
 }
 
 function multiply(a, b){
-    return (a * b);
+    return fixedIt(a * b);
 }
 
 function divide(a, b){
-    return (a / b);
+    return fixedIt(a / b);
 }
 
 function operate(result, num){
