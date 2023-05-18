@@ -5,6 +5,7 @@ let opSet = false;
 let i = 0;
 let decimal = false;
 let done = false;
+let valSet = false;
 
 /*Functions*/
 
@@ -15,6 +16,8 @@ function reset(){
     operations = [];
     opSet = false;
     done = false;
+    valSet = false;
+    i = 0;
 }
 
 function setCtrl(val){
@@ -50,6 +53,7 @@ function setCtrl(val){
 function setVal(val){
     opSet = false;
     let text = $("#calc").text();
+    $("#calc").fadeToggle(20);
     if (val == "."){
         if(!decimal){
             text += val;
@@ -60,13 +64,15 @@ function setVal(val){
     else if(text == "0" || text == "You can't divide by 0..."){
         $("#calc").text(val);
     }
-    else if((vals.length > 0) && operations.length == vals.length){
+    else if(!valSet && (vals.length > 0) && operations.length == vals.length){
         $("#calc").text(val);
+        valSet = true;
     }
     else{
         text += val;
         $("#calc").text(text);
     }
+    $("#calc").fadeToggle(20);
 }
 
 function resetOpBg(){
@@ -80,6 +86,7 @@ function setOp(elem){
         resetOpBg();
         let text = $("#calc").text();
         vals.push(Number(text));
+        valSet = false;
         if(val == "="){
             getResult();
         }
@@ -87,7 +94,6 @@ function setOp(elem){
             operations.push(val);
             elem.classList.add("opClick");
         }
-        
         opSet = true;
     }
 }
