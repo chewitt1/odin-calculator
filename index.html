@@ -10,10 +10,21 @@
     <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-    <main>
-        <div class="title">
-            <h1>Odin</h1>
-            <h1>Calculator</h1>
+    <main id="win">
+        <div class="titlebar">
+            <div class="title">
+                <p>Odin Calculator</p>
+            </div>
+            <div class="actions">
+                <button class="action">-</button>
+                <button class="action">[ ]</button>
+                <button class="action">x</button>
+            </div>
+        </div>
+        <div class="menubar">
+            <div class="menu-item">Edit</div>
+            <div class="menu-item">View</div>
+            <div class="menu-item">Help</div>
         </div>
         <div class="calc-body">
             <div class="calc-screen">
@@ -52,9 +63,9 @@
             </div>
         </div>
     </main>
-    <footer>
-        <p>The Odin Project</p>
-        <p>Carrima Hewitt</p>
+    <footer id="taskbar">
+        <button id="start">Start</button>
+        <button id="tab">Odin Calculator</button>
     </footer>
 
 </body>
