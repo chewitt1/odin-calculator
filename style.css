@@ -14,7 +14,7 @@
 }
 
 body{
-    
+    overflow-y: hidden;
     padding-top: 80px;
     background-color: var(--bg-color);
     display: flex;
@@ -81,7 +81,6 @@ body{
 }
 
 .calc-screen{
-    
     background-color: #323030;
     height: 72px;
     width: 100%;
@@ -90,8 +89,13 @@ body{
     padding-right: 4px;
     font-size: 32px;
     display: flex;
+    flex-direction: column;
     align-items: end;
-    justify-content: end;
+    justify-content: space-between;
+}
+.operation{
+    font-size: 20px;
+    color: rgb(211, 200, 200);
 }
 
 .calc-btns{
@@ -137,4 +141,8 @@ body{
     align-items: center;
     color: #301e21;
     background-color: #c9a0b3
+}
+
+.calc-btn:active, .calc-btn:focus{
+    background-color: var(--system-hover-color);
 }
