@@ -2,79 +2,63 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Odin Calculator</title>
+    <title>Odin Calculator | Carrima Hewitt</title>
     <link rel="stylesheet" href="./style.css">
 </head>
 <body>
     <main>
         <div class="window">
-            <div class="window-title">
-                <div class="program-name">
-                    <img src="./images/calculator.png" alt="Calculator Icon">
-                    <p>Calculator</p>
+            <div class="titlebar">
+                <div class="titlebar-left">
+                    <img src="./images/calculator.png" alt="Calculator Icon" class="titlebar-icon" height="24" width="24">
+                    <p class="titlebar-title">Odin Calculator</p>
                 </div>
-                <div class="window-buttons">
-                    <button id="minimize">-</button>
-                    <button >[ ]</button>
+                <div class="titlebar-btns">
+                    <!--<button id="minimize">-</button>
+                    <button id="resize">()</button>-->
                     <button id="close">x</button>
                 </div>
             </div>
-            <div class="window-menu">
-                <p>Edit</p>
-                <p>View</p>
-                <p>Help</p>
+            <div class="toolbar">
+                <p class="toolbar-option">Edit</p>
+                <p class="toolbar-option">View</p>
+                <p class="toolbar-option">Help</p>
             </div>
-            <div class="window-content">
+            <div class="calc-body">
                 <div class="calc-screen">0</div>
-                <div class="calc-functions">
-                    <div class="calc-row">
-                        <button class="calc-input">AC</button><button class="calc-input">+/-</button><button class="calc-input">&larr;</button><button class="calc-input">&divide;</button>
-                    </div>
-                    <div class="calc-row">
-                        <button class="calc-input">9</button><button class="calc-input">8</button><button class="calc-input">7</button><button class="calc-input">*</button>
-                    </div>
-                    <div class="calc-row">
-                        <button class="calc-input">6</button><button class="calc-input">5</button><button class="calc-input">2</button><button class="calc-input">-</button>
-                    </div>
-                    <div class="calc-row">
-                        <button class="calc-input">3</button><button class="calc-input">2</button><button class="calc-input">1</button><button class="calc-input">+</button>
-                    </div>
-                    <div class="calc-row">
-                        <button class="calc-input" id="zero">0</button><button class="calc-input">.</button><button class="calc-input">=</button>
-                    </div>
-                    <div class="calc-row"></div>
-                    <div class="calc-row"></div>
-                    <div class="calc-row"></div>
-                </div>
+                <div class="calc-btns">
+                    <button class="calc-btn">AC</button>
+                    <button class="calc-btn">+/-</button>
+                    <button class="calc-btn">&larr;</button>
+                    <button class="calc-btn">&divide;</button>
+                    <button class="calc-btn">9</button>
+                    <button class="calc-btn">8</button>
+                    <button class="calc-btn">7</button>
+                    <button class="calc-btn">*</button>
+                    <button class="calc-btn">6</button>
+                    <button class="calc-btn">5</button>
+                    <button class="calc-btn">4</button>
+                    <button class="calc-btn">-</button>
+                    <button class="calc-btn">3</button>
+                    <button class="calc-btn">2</button>
+                    <button class="calc-btn">1</button>
+                    <button class="calc-btn">+</button>
+                    <button class="calc-btn big-btn">0</button>
+                    <button class="calc-btn">.</button>
+                    <button class="calc-btn">=</button>
             </div>
         </div>
     </main>
-    <footer>
+    <footer class="taskbar">
         <div class="start">
-            <img src="./images/windows.png" alt="Modified Windows 95 Icon">
-            <p>Start</p>
+            <img src="./images/windows.png" alt="Windows Logo" height="24px" width="24px">
         </div>
-        <div class="tab tab-curr">
-            <img src="./images/calculator.png" alt="Modified Windows 95 Icon">
-            <p>Calculator</p>
+        <div class="tab">
+            <img src="./images/calculator.png" alt="Calculator Tab Icon" class="tab-icon" height="24" width="24">
+            <p class="tab-text">Odin Calculator</p>
         </div>
     </footer>
-    <div class="menu">
-        <div class="system"><p>Odin95</p></div>
-        <div class="menu-items">
-            <div class="menu-item" id="calculator-open">
-                <img src="./images/calculator.png" alt="A Cute Calculator">
-                <p>Calculator</p>
-            </div>
-            <hr>
-            <div class="menu-item">
-                <img src="./images/shutdown.png" alt="Shut Down Icon">
-                <p>Shut Down</p>
-            </div>
-        </div>
-    </div>
     <script src="./script.js" defer></script>
 </body>
 </html>
