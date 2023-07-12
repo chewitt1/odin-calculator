@@ -92,3 +92,8 @@ function operate(valStr){
     }
     return total.toFixed(6);
 }
+
+//Close window
+document.querySelector("#close").addEventListener("click", ()=>{
+    document.querySelector(".window").style.display = "none";
+});
