@@ -96,4 +96,5 @@ function operate(valStr){
 //Close window
 document.querySelector("#close").addEventListener("click", ()=>{
     document.querySelector(".window").style.display = "none";
+    document.querySelector(".tab").style.display = "none";
 });
