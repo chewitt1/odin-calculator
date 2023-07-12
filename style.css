@@ -28,6 +28,7 @@ body{
     border: 1px solid #734951;
     width: 240px;
     background-color: var(--app-bg-color);
+    cursor: default;
 }
 
 .titlebar{
@@ -52,9 +53,12 @@ body{
     height: 20px;
     width: 20px;
 }
+#close{
+    background-color: var(--app-bg-color);
+    border-color: #92618b;
+}
 
 .toolbar{
-    
     height: 28px;
     padding-bottom: 5px;
     padding-left: 6px;
@@ -64,9 +68,13 @@ body{
     color: white;
     border-bottom: 1px solid #734951;
     font-size: 14px;
+    cursor: default;
+}
+.toolbar-option{
+    color: white;
 }
 .toolbar-option::first-letter{
-    border-bottom: 2px solid white;
+    border-bottom: 2px solid;
 }
 
 .calc-body{
@@ -82,11 +90,11 @@ body{
 
 .calc-screen{
     background-color: #323030;
-    height: 72px;
+    height: 90px;
     width: 100%;
     font-family: 'Orbitron', sans-serif;
     color: white;
-    padding-right: 4px;
+    padding-right: 3px;
     font-size: 32px;
     display: flex;
     flex-direction: column;
@@ -94,8 +102,12 @@ body{
     justify-content: space-between;
 }
 .operation{
+    max-width: 100%;
+    max-height: 50%;
     font-size: 20px;
     color: rgb(211, 200, 200);
+    overflow-wrap: break-word;
+    padding: 0 3px;
 }
 
 .calc-btns{
@@ -143,6 +155,10 @@ body{
     background-color: #c9a0b3
 }
 
-.calc-btn:active, .calc-btn:focus{
+.calc-btn:hover, .calc-btn:active, .calc-btn:focus, #close:hover, #close:active, #close:focus{
     background-color: var(--system-hover-color);
+}
+
+.toolbar-option:hover, .toolbar-option:active, .toolbar-option:focus{
+    color: #301e21;
 }
